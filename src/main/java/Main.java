@@ -1,22 +1,22 @@
 public class Main {
     public static float CalculByOperator(char Operator, float A, float B){
         switch (Operator) {
-            case '+' -> {
+            case '+':{
                 return A + B;
             }
-            case '-' -> {
+            case '-':{
                 return A - B;
             }
-            case '*' -> {
+            case '*':{
                 return A * B;
             }
-            case '/' -> {
+            case '/':{
                 if(B == 0){
                     return A;
                 }
                 return A / B;
             }
-            default -> {
+            default:{
                 return -1;
             }
         }
