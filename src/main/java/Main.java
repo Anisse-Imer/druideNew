@@ -1,5 +1,3 @@
-package org.example;
-
 public class Main {
     public static float CalculByOperator(char Operator, float A, float B){
         switch (Operator) {
@@ -116,5 +114,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println(DruideCalcul("5 10 10 + + 5 *"));
     }
 }
