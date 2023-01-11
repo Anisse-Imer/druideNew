@@ -1,3 +1,5 @@
+package D;
+
 public class Main {
     public static float CalculByOperator(char Operator, float A, float B){
         switch (Operator) {
@@ -79,6 +81,7 @@ public class Main {
     public static char[][] Extract(String Chaine){
         int NumberElements = 0;
         int StartPosition = 0;
+        int TailleChaine = Chaine.length();
         char[][] NewElements = new char[0][0];
         for (int index = 0; index < Chaine.length(); index++){
             if(Chaine.charAt(index) == 32){
