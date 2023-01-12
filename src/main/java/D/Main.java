@@ -69,7 +69,7 @@ public class Main {
         int StartPosition = 0;
         char[][] NewElements = new char[0][0];
         for (int index = 0; index < Chaine.length(); index++){
-            if(Chaine.charAt(index) == 32){
+            if(Chaine.charAt(index) == ' '){
                 NewElements = push(NewElements,NumberElements);
                 if(StartPosition == index - 1) {
                     NewElements[NumberElements] = pop(Chaine.toCharArray(),index - 1,index - 1);
@@ -124,8 +124,5 @@ public class Main {
             return Float.parseFloat(new String(TableElement[0]));
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
     }
 }
