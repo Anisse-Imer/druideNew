@@ -1,7 +1,5 @@
 package D;
 
-import java.util.Arrays;
-
 public class Main {
     public static float CalculByOperator(char Operator, float A, float B){
         switch (Operator) {
