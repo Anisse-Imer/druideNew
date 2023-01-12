@@ -23,33 +23,6 @@ public class Main {
         }
     }
 
-    public static boolean caracterIsGood(char Carac){
-        switch (Carac) {
-            case '+':
-            case '-':
-            case '*':
-            case '/':
-            case ' ':
-            case '.':
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            {
-                return true;
-            }
-            default:{
-                return false;
-            }
-        }
-    }
-
     public static char[][] push(char[][] ACopie, int NumerElements){
         char[][] NewTab = new char[NumerElements + 1][];
         for (int index = 0 ; index < NumerElements; index++){
@@ -152,11 +125,9 @@ public class Main {
         if(TableElement != null) {
             return Float.parseFloat(new String(TableElement[0]));
         }
-        System.out.println("Error : division par 0 impossible");
         return 0;
     }
 
     public static void main(String[] args) {
-        System.out.println(DruideCalcul(""));
     }
 }
