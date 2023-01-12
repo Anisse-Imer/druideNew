@@ -67,9 +67,10 @@ public class Main {
     public static char[][] Extract(String Chaine){
         int NumberElements = 0;
         int StartPosition = 0;
+        int ASCIIEscpace = 32;
         char[][] NewElements = new char[0][0];
         for (int index = 0; index < Chaine.length(); index++){
-            if(Chaine.charAt(index) == ' '){
+            if(Chaine.charAt(index) == ASCIIEscpace){
                 NewElements = push(NewElements,NumberElements);
                 if(StartPosition == index - 1) {
                     NewElements[NumberElements] = pop(Chaine.toCharArray(),index - 1,index - 1);
