@@ -1,5 +1,7 @@
 package D;
 
+import java.util.Arrays;
+
 public class Main {
     public static float CalculByOperator(char Operator, float A, float B){
         switch (Operator) {
@@ -13,13 +15,37 @@ public class Main {
                 return A * B;
             }
             case '/':{
-                if(B == 0){
-                    return A;
-                }
                 return A / B;
             }
             default:{
                 return -1;
+            }
+        }
+    }
+
+    public static boolean caracterIsGood(char Carac){
+        switch (Carac) {
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+            case ' ':
+            case '.':
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            {
+                return true;
+            }
+            default:{
+                return false;
             }
         }
     }
@@ -67,21 +93,9 @@ public class Main {
         return TableauCopie;
     }
 
-    public static char[][] CalculAndReplace(char[][] TabElements, int Operator){
-        float ValeurA = Float.parseFloat(new String(TabElements[Operator - 1]));
-        float ValeurB = Float.parseFloat(new String(TabElements[Operator - 2]));
-        TabElements[Operator - 2] = Float.toString(CalculByOperator(TabElements[Operator][0], ValeurB, ValeurA)).toCharArray();
-        char[][] NewTab = pop(TabElements, 0, Operator - 1);
-        for (int index = Operator + 1 ; index < TabElements.length ; index++){
-            NewTab = push(NewTab, TabElements[index], NewTab.length);
-        }
-        return NewTab;
-    }
-
     public static char[][] Extract(String Chaine){
         int NumberElements = 0;
         int StartPosition = 0;
-        int TailleChaine = Chaine.length();
         char[][] NewElements = new char[0][0];
         for (int index = 0; index < Chaine.length(); index++){
             if(Chaine.charAt(index) == 32){
@@ -103,20 +117,46 @@ public class Main {
         return NewElements;
     }
 
+    //Retourne la pile après le calcul.
+    public static char[][] CalculAndReplace(char[][] TabElements, int Operator){
+        float ValeurA = Float.parseFloat(new String(TabElements[Operator - 1]));
+        float ValeurB = Float.parseFloat(new String(TabElements[Operator - 2]));
+        if(ValeurA == 0 && TabElements[Operator][0] == '/') {   // gestion de l'exception de division par 0
+            return null;
+        }
+        else {
+            // On calcule la valeur et on la stoque dans la pile originale.
+            TabElements[Operator - 2] = Float.toString(CalculByOperator(TabElements[Operator][0], ValeurB, ValeurA)).toCharArray();
+        }
+        //On récupère la pile jusqu'à l'élément avant l'opérateur
+        char[][] NewTab = pop(TabElements, 0, Operator - 1);
+        //On push les éléments restants de la pile sauf ceux que l'on souhaite éliminer
+        for (int index = Operator + 1 ; index < TabElements.length ; index++){
+            NewTab = push(NewTab, TabElements[index], NewTab.length);
+        }
+        return NewTab;
+    }
+
+    //Retourne la valeur finale du calcul
     public static float DruideCalcul(String Calcul){
         char[][] TableElement = Extract(Calcul);
         int index = 0;
         do {
-            if(TableElement[index].length == 1 && (CalculByOperator(TableElement[index][0], 1.00F, 1.00F) != -1)){
-                TableElement = CalculAndReplace(TableElement, index);
+            // On vérifie que l'élement de la pile soit un opérateur (il doit être seul et être un opérateur
+            if (TableElement[index].length == 1 && (CalculByOperator(TableElement[index][0], 1.00F, 1.00F) != -1)) {
+                TableElement = CalculAndReplace(TableElement, index); //Null si exception ou la nouvelle pile après opération
                 index = index - 2;
             }
             index++;
-        }while (TableElement.length != 1);
-        return Float.parseFloat(new String(TableElement[0]));
+        } while (TableElement != null && TableElement.length != 1); //S'arrête si null pour gérer les
+        if(TableElement != null) {
+            return Float.parseFloat(new String(TableElement[0]));
+        }
+        System.out.println("Error : division par 0 impossible");
+        return 0;
     }
 
     public static void main(String[] args) {
-        System.out.println(DruideCalcul("5 10 10 + + 5 *"));
+        System.out.println(DruideCalcul(""));
     }
 }
